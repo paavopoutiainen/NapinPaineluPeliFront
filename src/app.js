@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import io from "socket.io-client"
 
 const socket = io.connect("http://localhost:3001")
@@ -8,6 +8,17 @@ const App = () => {
     const [points, setPoints] = useState(20)
     const [untilPoints, setUntilPoints] = useState(null)
     const [notification, setNotification] = useState(null)
+
+    useEffect(() => {
+        const pointsInLocalStorage = window.localStorage.getItem("points")
+        if(pointsInLocalStorage){
+          setPoints(parseInt(pointsInLocalStorage))
+        }
+    }, [])
+
+    useEffect(() => {
+        window.localStorage.setItem("points", points)
+    }, [points])
 
     function handleClick() {
         socket.emit("click")
