@@ -1,12 +1,24 @@
 import React, {useState} from 'react'
+import io from "socket.io-client"
+
+const socket = io.connect("http://localhost:3001")
 
 const App = () => {
-  const [counter, setCounter] = useState(0)
+
+    function handleClick() {
+        socket.emit("test")
+    }
 
   return (
-    <div className="container">
-      hello
-    </div>
+        <div>
+            <div className="container">
+                hello
+            </div>
+            <div id="button">
+                <button onClick={() => handleClick()}>Click me!!</button>
+            </div>
+        </div>
+    
   )
 }
 
