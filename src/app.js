@@ -7,6 +7,7 @@ const App = () => {
 
     const [points, setPoints] = useState(20)
     const [untilPoints, setUntilPoints] = useState(null)
+    const [notification, setNotification] = useState(null)
 
     function handleClick() {
         socket.emit("click")
@@ -15,7 +16,11 @@ const App = () => {
 
     socket.on("clickResponse", (data) => {
         if(data.pointsIncreased !== 0) {
+            setNotification(`You earned ${data.pointsIncreased} points`)
           setPoints(points + data.pointsIncreased)
+          setTimeout(()=> {
+            setNotification(null) 
+          }, 4000)
         }
         setUntilPoints(data.clicksLeftBeforePoints)
     })
@@ -42,6 +47,9 @@ const App = () => {
             </div>
             <div id="button">
                 <button onClick={() => handleClick()}>Click me!!</button>
+            </div>
+            <div id="notification">
+                {notification ? <p><strong>{notification}</strong></p> : null}
             </div>
         </div>
     
