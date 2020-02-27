@@ -48,14 +48,15 @@ const App = () => {
 
     return (
         <div>
-            <div id="instructions">
+             <div id="instructions">
                 <p>Hey there, your job is to click the button. Every click will decrease your points by one.<br></br>
                 After each click you will be provided with the number of clicks before the next click resulting in increase in points.<br></br>
-              <br></br>
+                But remember there are other people clicking the button too!<br></br>
                 Points are given as follows: <br></br> 
-                    5 points for every 10th.<br></br>
-                    40 points for every 100th<br></br>
+                    5 points for every 10th click.<br></br>
+                    40 points for every 100th click<br></br>
                     and 250 points for every 500th click.<br></br>
+                    In case of overlap only the bigger increase in points will result.
                 </p>
             </div>
             <div id="gameStats">
