@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import './App.css'
 import io from "socket.io-client"
 import Tryagain from "./components/Tryagain"
 
@@ -47,8 +48,8 @@ const App = () => {
     }
 
     return (
-        <div>
-             <div id="instructions">
+        <div className="App">
+             <div className="instructions">
                 <p>Hey there, your job is to click the button. Every click will decrease your points by one.<br></br>
                 After each click you will be provided with the number of clicks before the next click resulting in increase in points.<br></br>
                 But remember there are other people clicking the button too!<br></br>
@@ -59,18 +60,18 @@ const App = () => {
                     In case of overlap only the bigger increase in points will result.
                 </p>
             </div>
-            <div id="gameStats">
+            <div className="gameStats">
                 <div id="points">
                     <p><strong>Points: </strong>{points}</p>
                 </div>
-                <div id="clickInformation">
+                <div className="clickInformation">
                     <p><strong>Number of clicks to points at your last click: </strong>{untilPoints}</p>
                 </div>
             </div>
             <div id="button">
                 <button onClick={() => handleClick()}>Click me!!</button>
             </div>
-            <div id="notification">
+            <div className="notification">
                 {notification ? <p><strong>{notification}</strong></p> : null}
             </div>
         </div>
