@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import io from "socket.io-client"
+import Tryagain from "./components/Tryagain"
 
 const socket = io.connect("http://localhost:3001")
 
@@ -25,6 +26,11 @@ const App = () => {
         setPoints(points - 1)
     }
 
+    const handleTryAgainYes = () => {
+        setPoints(20)
+        setNotification(null)
+      }
+
     socket.on("clickResponse", (data) => {
         if(data.pointsIncreased !== 0) {
             setNotification(`You earned ${data.pointsIncreased} points`)
@@ -36,7 +42,11 @@ const App = () => {
         setUntilPoints(data.clicksLeftBeforePoints)
     })
 
-  return (
+    if(points === 0) {
+        return <Tryagain handleTryAgainYes={handleTryAgainYes}></Tryagain>
+    }
+
+    return (
         <div>
             <div id="instructions">
                 <p>Hey there, your job is to click the button. Every click will decrease your points by one.<br></br>
