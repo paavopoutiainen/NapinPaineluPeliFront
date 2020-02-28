@@ -44,7 +44,9 @@ const App = () => {
     })
 
     if(points === 0) {
-        return <Tryagain handleTryAgainYes={handleTryAgainYes}></Tryagain>
+        setTimeout(() => {
+            return <Tryagain handleTryAgainYes={handleTryAgainYes}></Tryagain>
+        }, 300)
     }
 
     return (
