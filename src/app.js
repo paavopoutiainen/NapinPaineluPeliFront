@@ -11,27 +11,32 @@ const App = () => {
     const [untilPoints, setUntilPoints] = useState(null)
     const [notification, setNotification] = useState(null)
 
+    //after initial render, checking for points in the localstorage
     useEffect(() => {
         const pointsInLocalStorage = window.localStorage.getItem("points")
         if(pointsInLocalStorage){
           setPoints(parseInt(pointsInLocalStorage))
         }
     }, [])
-
+  
+    //saving the points into localStorage everytime it changes
     useEffect(() => {
         window.localStorage.setItem("points", points)
     }, [points])
 
+    //handling game clicks
     function handleClick() {
         socket.emit("click")
         setPoints(points - 1)
     }
-
+    
+    //handling try again click
     const handleTryAgainYes = () => {
         setPoints(20)
         setNotification(null)
-      }
-
+    }
+    
+    //socketcontrol
     socket.on("clickResponse", (data) => {
         if(data.pointsIncreased !== 0) {
             setNotification(`You earned ${data.pointsIncreased} points`)
@@ -43,10 +48,9 @@ const App = () => {
         setUntilPoints(data.clicksLeftBeforePoints)
     })
 
+    //renders
     if(points === 0) {
-        setTimeout(() => {
-            return <Tryagain handleTryAgainYes={handleTryAgainYes}></Tryagain>
-        }, 300)
+        return <Tryagain handleTryAgainYes={handleTryAgainYes}></Tryagain>
     }
 
     return (
